@@ -1,6 +1,7 @@
 name: Create EC2 Instance with Terraform
 
 on:
+  workflow_dispatch: # Allows manual trigger
   push:
     branches:
       - main
