@@ -41,7 +41,6 @@ jobs:
     # Step 5: Apply Terraform in the 'thing' directory
     - name: Terraform Apply Thing
       run: terraform apply -auto-approve
-      working-directory: thing
       env:
         TF_VAR_access_key: ${{ secrets.AWS_KEY }}
         TF_VAR_secret_key: ${{ secrets.AWS_SECRET }}
