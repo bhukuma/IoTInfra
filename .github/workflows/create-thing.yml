@@ -30,13 +30,15 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET }}
         aws-region: us-east-1  # Change this to your preferred AWS region
     - name: Change Directory to Terraform
-      run: cd /home/runner/work/IoTInfra/thing
+      run: cd thing
     - name: Clean lockfile
       run: rm -rf .terraform/ .terraform.lock.hcl
  #     run: cd thing
     # Step 4: Initialize Terraform with remote backend
+    
     - name: Terraform Init
       run: terraform init
+      working-directory: thing
       env:
         TF_VAR_access_key: ${{ secrets.AWS_KEY }}
         TF_VAR_secret_key: ${{ secrets.AWS_SECRET }}
