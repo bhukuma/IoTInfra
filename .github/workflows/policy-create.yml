@@ -29,6 +29,9 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_KEY }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET }}
         aws-region: us-east-1  # Change this to your preferred AWS region
+        
+    - name: Clean lockfile
+      run: rm -rf .terraform/ .terraform.lock.hcl
     - name: Change Directory to Terraform
       run: cd policies
     - name: Clean lockfile
