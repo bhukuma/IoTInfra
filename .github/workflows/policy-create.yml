@@ -29,19 +29,19 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_KEY }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET }}
         aws-region: us-east-1  # Change this to your preferred AWS region
-    - name: Change Directory to Terraform
-      run: cd thing        
-    - name: Clean lockfile
-      run: rm -rf .terraform/ .terraform.lock.hcl
-    - name: Change Directory to Terraform
-      run: cd policies
-    - name: Clean lockfile
-      run: rm -rf .terraform/ .terraform.lock.hcl
-    
-    # Step 5: Apply Terraform to create EC2 instance
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
+
+    # Step 4: Initialize Terraform in the 'policies' directory
+    - name: Terraform Init Policies
+      run: terraform init
       working-directory: policies
+      env:
+        TF_VAR_access_key: ${{ secrets.AWS_KEY }}
+        TF_VAR_secret_key: ${{ secrets.AWS_SECRET }}
+
+    # Step 5: Apply Terraform in the 'thing' directory
+    - name: Terraform Apply Thing
+      run: terraform apply -auto-approve
+      working-directory: thing
       env:
         TF_VAR_access_key: ${{ secrets.AWS_KEY }}
         TF_VAR_secret_key: ${{ secrets.AWS_SECRET }}
