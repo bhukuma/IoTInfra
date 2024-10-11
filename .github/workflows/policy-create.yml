@@ -34,10 +34,8 @@ jobs:
    #   run: rm -rf .terraform/ .terraform.lock.hcl
     - name: Change Directory to Terraform
       run: cd policies
-#    - name: Clean lockfile
- #     run: rm -rf .terraform/ .terraform.lock.hcl
- #     run: cd thing
-    # Step 4: Initialize Terraform with remote backend
+    - name: Clean lockfile
+      run: rm -rf .terraform/ .terraform.lock.hcl
     
     # Step 5: Apply Terraform to create EC2 instance
     - name: Terraform Apply
