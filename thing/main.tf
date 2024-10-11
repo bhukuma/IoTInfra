@@ -9,12 +9,12 @@ resource "aws_iot_thing" "my_iot_thing" {
 
 # Create an IoT Certificate
 resource "aws_iot_certificate" "my_iot_certificate" {
-active = true
+  active = true
 }
 
 # Attach a policy to the certificate
 resource "aws_iot_policy" "my_iot_policy" {
-  name   = "AWSIoTThingsRegistration"
+  name = "AWSIoTThingsRegistration"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -35,16 +35,17 @@ resource "aws_iot_policy" "my_iot_policy" {
 
 # Attach the policy to the certificate
 resource "aws_iot_policy_attachment" "my_policy_attachment" {
-  policy  = aws_iot_policy.my_iot_policy.name
-  target  = aws_iot_certificate.my_iot_certificate.arn
+  policy = aws_iot_policy.my_iot_policy.name
+  target = aws_iot_certificate.my_iot_certificate.arn
 }
 
 # Attach the certificate to the IoT Thing
 resource "aws_iot_thing_principal_attachment" "my_attachment" {
-  thing_name = aws_iot_thing.my_iot_thing.name
-  principal  = aws_iot_certificate.my_iot_certificate.arn
+  thing     = aws_iot_thing.my_iot_thing.name   # Corrected argument here
+  principal = aws_iot_certificate.my_iot_certificate.arn
 }
 
+# Output values
 output "thing_arn" {
   value = aws_iot_thing.my_iot_thing.arn
 }
