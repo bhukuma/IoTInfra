@@ -13,8 +13,6 @@ resource "aws_iot_certificate" "my_iot_certificate" {
   count = 1  # Create a single certificate
   active = true  # Activate the certificate
 
-  # Note: You can specify different options for certificate creation
-  allow_unverified_cert = false
 }
 
 # Attach a policy to the certificate
