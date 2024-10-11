@@ -1,15 +1,21 @@
+terraform {
+  backend "s3" {
+    bucket         = "your-s3-bucket-name"        # Change this to your S3 bucket
+    key            = "terraform/thing/terraform.tfstate"  # Path within the bucket to store the state file
+    region         = "us-east-1"                  # Change this to your AWS region
+    encrypt        = true                         # Enable server-side encryption of the state file
+  }
+}
+
+
 provider "aws" {
   region = "us-east-1"  # Specify your preferred AWS region
 }
 
 # Create an IoT Thing
 resource "aws_iot_thing" "my_iot_thing" {
-  name               = "MyIoTThing"  # Specify the name of your IoT Thing
-  thing_type_name    = "MyThingType"  # Optional: Specify a Thing Type
-  attribute_payload = {
-    "attr1" = "value1"  # Optional: Add attributes to the Thing
-    "attr2" = "value2"
-  }
+  name               = "ESP32"  # Specify the name of your IoT Thing
+
 }
 
 # Create an IoT Certificate
@@ -23,7 +29,7 @@ resource "aws_iot_certificate" "my_iot_certificate" {
 
 # Attach a policy to the certificate
 resource "aws_iot_policy" "my_iot_policy" {
-  name   = "MyIoTPolicy"
+  name   = "AWSIoTThingsRegistration"
 
   policy = jsonencode({
     Version = "2012-10-17"
