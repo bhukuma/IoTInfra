@@ -37,7 +37,7 @@ jobs:
     # Step 5: Initialize Terraform
     - name: Terraform Init
       run: terraform init
-      working-directory: thing  # Specify the working directory
+  #    working-directory: thing  # Specify the working directory
 
     # Step 6: Apply Terraform to create resources
     - name: Terraform Apply
