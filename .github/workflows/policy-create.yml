@@ -31,8 +31,8 @@ jobs:
         aws-region: us-east-1  # Change this to your preferred AWS region
     - name: Change Directory to Terraform
       run: cd policies
-#    - name: Clean lockfile
-#      run: rm -rf .terraform/ .terraform.lock.hcl
+    - name: Clean lockfile
+      run: rm -rf .terraform/ .terraform.lock.hcl
  #     run: cd thing
     # Step 4: Initialize Terraform with remote backend
     
