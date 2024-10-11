@@ -9,6 +9,7 @@ resource "aws_iot_thing" "my_iot_thing" {
 
 # Create an IoT Certificate
 resource "aws_iot_certificate" "my_iot_certificate" {
+active = true
 }
 
 # Attach a policy to the certificate
