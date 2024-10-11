@@ -1,4 +1,4 @@
-name: Deploy Thing Using Terraform
+name: Create IoT thing with Terraform
 
 on:
   workflow_dispatch: # Allows manual trigger
@@ -8,7 +8,7 @@ on:
 
 jobs:
   terraform:
-    name: Terraform Deployment
+    name: Terraform Thing Deployment
     runs-on: ubuntu-latest
 
     steps:
@@ -20,7 +20,7 @@ jobs:
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v2
       with:
-        terraform_version: 1.5.6  # Specify your required version
+        terraform_version: 1.5.6  # Change to your required version
 
     # Step 3: Configure AWS credentials
     - name: Configure AWS Credentials
@@ -30,16 +30,17 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET }}
         aws-region: us-east-1  # Change this to your preferred AWS region
 
-    # Step 4: Change directory to the Terraform files
-    - name: Change Directory to Terraform
-      run: cd thing
-
-    # Step 5: Initialize Terraform
+    # Step 4: Initialize Terraform with remote backend
     - name: Terraform Init
       run: terraform init
-   #   working-directory: thing  # Specify the working directory
+      env:
+        TF_VAR_access_key: ${{ secrets.AWS_KEY }}
+        TF_VAR_secret_key: ${{ secrets.AWS_SECRET }}
 
-    # Step 6: Apply Terraform to create resources
+    # Step 5: Apply Terraform to create EC2 instance
     - name: Terraform Apply
       run: terraform apply -auto-approve
-      working-directory: terraform  # Specify the working directory
+      working-directory: thing
+      env:
+        TF_VAR_access_key: ${{ secrets.AWS_KEY }}
+        TF_VAR_secret_key: ${{ secrets.AWS_SECRET }}
