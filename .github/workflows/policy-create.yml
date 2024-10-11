@@ -32,7 +32,7 @@ jobs:
 
     # Step 4: Initialize Terraform in the 'policies' directory
     - name: Terraform Init Policies
-      run: terraform init
+      run: terraform init -reconfigure
       working-directory: policies
       env:
         TF_VAR_access_key: ${{ secrets.AWS_KEY }}
