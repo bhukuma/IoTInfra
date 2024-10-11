@@ -14,7 +14,7 @@ resource "aws_iot_certificate" "my_iot_certificate" {
 
 # Attach a policy to the certificate
 resource "aws_iot_policy" "my_iot_policy" {
-  name = "AWSIoTThingsRegistration"
+  name = "IoTThingAndManagementPolicy"
 
   policy = jsonencode({
     Version = "2012-10-17"
