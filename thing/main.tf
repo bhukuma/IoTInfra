@@ -4,15 +4,13 @@ provider "aws" {
 
 # Create an IoT Thing
 resource "aws_iot_thing" "my_iot_thing" {
-  name               = "ESP32"  # Specify the name of your IoT Thing
-
+  name = "esp32"  # Specify the name of your IoT Thing
 }
 
 # Create an IoT Certificate
 resource "aws_iot_certificate" "my_iot_certificate" {
-  count = 1  # Create a single certificate
-  active = true  # Activate the certificate
-
+  count  = 1  # Create a single certificate
+  active = true  # This will activate the certificate after creation
 }
 
 # Attach a policy to the certificate
@@ -39,13 +37,13 @@ resource "aws_iot_policy" "my_iot_policy" {
 # Attach the policy to the certificate
 resource "aws_iot_policy_attachment" "my_policy_attachment" {
   policy  = aws_iot_policy.my_iot_policy.name
-  target  = aws_iot_certificate.my_iot_certificate.arn
+  target  = aws_iot_certificate.my_iot_certificate[count.index].arn
 }
 
 # Attach the certificate to the IoT Thing
 resource "aws_iot_thing_principal_attachment" "my_attachment" {
-  thing_name      = aws_iot_thing.my_iot_thing.name
-  principal       = aws_iot_certificate.my_iot_certificate.arn
+  thing_name = aws_iot_thing.my_iot_thing.name
+  principal  = aws_iot_certificate.my_iot_certificate[count.index].arn
 }
 
 output "thing_arn" {
@@ -53,7 +51,7 @@ output "thing_arn" {
 }
 
 output "certificate_arn" {
-  value = aws_iot_certificate.my_iot_certificate.arn
+  value = aws_iot_certificate.my_iot_certificate[count.index].arn
 }
 
 output "policy_arn" {
