@@ -32,7 +32,7 @@ jobs:
 
     # Step 4: Change directory to the Terraform files
     - name: Change Directory to Terraform
-      run: cd terraform
+      run: cd thing
 
     # Step 5: Initialize Terraform
     - name: Terraform Init
