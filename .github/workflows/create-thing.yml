@@ -1,0 +1,45 @@
+name: Deploy Terraform Configuration
+
+on:
+  workflow_dispatch: # Allows manual trigger
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    name: Terraform Deployment
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Terraform
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.5.6  # Specify your required version
+
+    # Step 3: Configure AWS credentials
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET }}
+        aws-region: us-east-1  # Change this to your preferred AWS region
+
+    # Step 4: Change directory to the Terraform files
+    - name: Change Directory to Terraform
+      run: cd terraform
+
+    # Step 5: Initialize Terraform
+    - name: Terraform Init
+      run: terraform init
+      working-directory: thing  # Specify the working directory
+
+    # Step 6: Apply Terraform to create resources
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      working-directory: terraform  # Specify the working directory
