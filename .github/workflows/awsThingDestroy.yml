@@ -1,11 +1,11 @@
-name: Destroy EC2 Instance with Terraform
+name: Destroy AWS Thing with Terraform
 
 on:
   workflow_dispatch: # Allows manual trigger of the destroy workflow
 
 jobs:
   terraform:
-    name: Terraform EC2 Destroy
+    name: Terraform Thing Destroy
     runs-on: ubuntu-latest
 
     steps:
