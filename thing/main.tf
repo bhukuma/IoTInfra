@@ -43,8 +43,10 @@ resource "aws_iot_thing_principal_attachment" "thing_cert_attachment" {
 # Output the private key and certificate for later use
 output "private_key_pem" {
   value = tls_private_key.example_key.private_key_pem
+  sensitive = true
 }
 
 output "certificate_pem" {
   value = aws_iot_certificate.example_certificate.certificate_pem
+  sensitive = true
 }
