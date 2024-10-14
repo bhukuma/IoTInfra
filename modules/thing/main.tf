@@ -6,7 +6,7 @@ resource "random_string" "thing_suffix" {
 }
 
 resource "aws_iot_thing" "esp32" {
-  name = "thing_esp32_${random_string.thing_suffix.result}"
+  name = "thing-esp32-${random_string.thing_suffix.result}"
 
   attributes = {
     "environment" = "development"
