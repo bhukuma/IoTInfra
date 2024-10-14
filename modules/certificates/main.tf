@@ -1,4 +1,4 @@
-module "aws_iot_thing" {
+module "iot_module" {
   source = "./modules/thing"  # Path to the folder containing module_a
 }
 # Generate a private key locally
@@ -31,7 +31,7 @@ resource "aws_iot_thing_principal_attachment" "thing_cert_attachment" {
 
 # Create a Secret in AWS Secrets Manager for the private key
 resource "aws_secretsmanager_secret" "private_key_secret" {
-  name        = "${aws_iot_thing.esp32.name}-key"
+  name        = "${module.iot_module.iot_thing_name}-key"
   description = "Private key for IoT Thing"
 }
 
@@ -42,7 +42,7 @@ resource "aws_secretsmanager_secret_version" "private_key_version" {
 
 # Create a Secret in AWS Secrets Manager for the certificate
 resource "aws_secretsmanager_secret" "certificate_secret" {
-  name        = "${aws_iot_thing.esp32.name}-cert"
+  name        = "${module.iot_module.iot_thing_name}-cert"
   description = "Certificate for IoT Thing"
 }
 
