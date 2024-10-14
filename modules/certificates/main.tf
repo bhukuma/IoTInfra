@@ -1,4 +1,4 @@
-module "iot_module" {
+module "aws_iot_thing" {
   source = "./modules/thing"  # Path to the folder containing module_a
 }
 # Generate a private key locally
