@@ -1,7 +1,7 @@
-name: Create IoT thing with Terraform
+name: Create IoT Thing with Terraform
 
 on:
-  workflow_dispatch: # Allows manual trigger
+  workflow_dispatch:  # Allows manual trigger
   push:
     branches:
       - main
@@ -12,41 +12,55 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Check out the repository
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      # Step 1: Check out the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    # Step 2: Set up Terraform
-    - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: 1.5.6  # Change to your required version
+      # Step 2: Set up Terraform
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.6  # Specify your required version
 
-    # Step 3: Configure AWS credentials
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_KEY }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET }}
-        aws-region: us-east-1  # Change this to your preferred AWS region
-    - name: Change Directory to Terraform
-      run: cd thing
-#    - name: Clean lockfile
-#      run: rm -rf .terraform/ .terraform.lock.hcl
- #     run: cd thing
-    # Step 4: Initialize Terraform with remote backend
-    
-    - name: Terraform Init
-      run: terraform init
-      working-directory: thing
-      env:
-        TF_VAR_access_key: ${{ secrets.AWS_KEY }}
-        TF_VAR_secret_key: ${{ secrets.AWS_SECRET }}
+      # Step 3: Configure AWS credentials using GitHub Secrets
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET }}
+          aws-region: us-east-1  # Update if using a different AWS region
 
-    # Step 5: Apply Terraform to create EC2 instance
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
-      working-directory: thing
-      env:
-        TF_VAR_access_key: ${{ secrets.AWS_KEY }}
-        TF_VAR_secret_key: ${{ secrets.AWS_SECRET }}
+      # Step 4: Change Directory to Terraform
+      - name: Change Directory to Terraform
+        run: cd thing
+
+      # Optional: Clean up Terraform lockfile if needed
+      # - name: Clean Terraform lockfile
+      #   run: rm -rf .terraform/ .terraform.lock.hcl
+      #   working-directory: thing
+
+      # Step 5: Initialize Terraform
+      - name: Terraform Init
+        run: terraform init
+        working-directory: thing
+        env:
+          TF_VAR_access_key: ${{ secrets.AWS_KEY }}
+          TF_VAR_secret_key: ${{ secrets.AWS_SECRET }}
+
+      # Step 6: Apply Terraform configuration to create the IoT Thing and certificate
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        working-directory: thing
+        env:
+          TF_VAR_access_key: ${{ secrets.AWS_KEY }}
+          TF_VAR_secret_key: ${{ secrets.AWS_SECRET }}
+
+      # Step 7: Store private key securely (optional)
+      - name: Store private key as artifact
+        run: echo "${{ steps.terraform.outputs.private_key_pem }}" > private_key.pem
+
+      - name: Upload private key as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: iot-private-key
+          path: private_key.pem
