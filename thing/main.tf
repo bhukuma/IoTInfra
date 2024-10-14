@@ -24,7 +24,7 @@ terraform {
 resource "random_string" "thing_suffix" {
   length  = 2
   lower   = true   # Change to false if you want only uppercase or digits
-  number  = true   # Set to true if you want to include numbers
+  numeric  = true   # Set to true if you want to include numbers
 }
 
 # Create the IoT thing with a random suffix
@@ -67,7 +67,7 @@ resource "aws_iot_thing_principal_attachment" "thing_cert_attachment" {
 
 # Create a Secret in AWS Secrets Manager for the private key
 resource "aws_secretsmanager_secret" "private_key_secret" {
-  name        = "aws_iot_thing.esp32.name-private-key"
+  name        = "aws_iot_thing.esp32.name"
   description = "Private key for IoT Thing"
 }
 
@@ -78,7 +78,7 @@ resource "aws_secretsmanager_secret_version" "private_key_version" {
 
 # Create a Secret in AWS Secrets Manager for the certificate
 resource "aws_secretsmanager_secret" "certificate_secret" {
-  name        = "aws_iot_thing.esp32.name-cert"
+  name        = "aws_iot_thing.esp32.name"
   description = "Certificate for IoT Thing"
 }
 
