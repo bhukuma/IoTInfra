@@ -61,12 +61,3 @@ resource "aws_secretsmanager_secret_version" "certificate_version" {
   secret_id     = aws_secretsmanager_secret.certificate_secret.id
   secret_string = aws_iot_certificate.example_certificate.certificate_pem
 }
-
-# Output the ARN of the secrets for reference
-output "private_key_secret_arn" {
-  value = aws_secretsmanager_secret.private_key_secret.arn
-}
-
-output "certificate_secret_arn" {
-  value = aws_secretsmanager_secret.certificate_secret.arn
-}
