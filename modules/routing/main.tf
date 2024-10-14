@@ -7,7 +7,7 @@ provider "aws" {
 
 # S3 Bucket where IoT messages will be stored (assuming it already exists)
 resource "aws_s3_bucket" "iot_data_bucket" {
-  bucket = "${module.iot_module.iot_thing_name}"  # Change this to your existing bucket name
+  bucket = iot-data  # Change this to your existing bucket name
 }
 
 # Reference the existing IAM role (replace with your role ARN)
