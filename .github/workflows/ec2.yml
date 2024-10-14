@@ -1,4 +1,4 @@
-name: Create EC2 Instance with Terraform
+name: Create AWS IoT Thing with Terraform
 
 on:
   workflow_dispatch: # Allows manual trigger
@@ -8,7 +8,7 @@ on:
 
 jobs:
   terraform:
-    name: Terraform EC2 Deployment
+    name: Terraform AWS Thing Deployment
     runs-on: ubuntu-latest
 
     steps:
