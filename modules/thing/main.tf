@@ -1,5 +1,5 @@
 resource "random_string" "thing_suffix" {
-  length  = 2
+  length  = 3
   lower   = true
   numeric  = true
 }
