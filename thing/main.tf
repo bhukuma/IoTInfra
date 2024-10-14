@@ -54,7 +54,7 @@ resource "tls_cert_request" "esp32_csr" {
 }
 
 # Create IoT Certificate using the CSR
-resource "aws_iot_certificate" "example_certificate" {
+resource "aws_iot_certificate" "esp32_certificate" {
   active = true
   csr    = tls_cert_request.esp32_csr.cert_request_pem
 }
@@ -62,7 +62,7 @@ resource "aws_iot_certificate" "example_certificate" {
 # Attach the certificate to the IoT Thing
 resource "aws_iot_thing_principal_attachment" "thing_cert_attachment" {
   thing     = aws_iot_thing.esp32.name
-  principal = aws_iot_certificate.example_certificate.arn
+  principal = aws_iot_certificate.esp32_certificate.arn
 }
 
 # Create a Secret in AWS Secrets Manager for the private key
@@ -84,5 +84,5 @@ resource "aws_secretsmanager_secret" "certificate_secret" {
 
 resource "aws_secretsmanager_secret_version" "certificate_version" {
   secret_id     = aws_secretsmanager_secret.certificate_secret.id
-  secret_string = aws_iot_certificate.example_certificate.certificate_pem
+  secret_string = aws_iot_certificate.esp32_certificate.certificate_pem
 }
