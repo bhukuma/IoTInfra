@@ -9,12 +9,12 @@ resource "aws_s3_bucket" "iot_data_bucket" {
 
 # Reference the existing IAM role (replace with your role ARN)
 data "aws_iam_role" "iot_role" {
-  name = "iot_role_name"  # Use your existing role name here
+  name = "iottos3"  # Use your existing role name here
 }
 
 # IoT Topic Rule that routes messages to S3
 resource "aws_iot_topic_rule" "iot_s3_rule" {
-  name = "iottos3"
+  name = "tos3"
 
   sql = "SELECT *, timestamp() as timestamp FROM 'esp32-pub'"  # Modify the topic filter as needed
   sql_version = "2016-03-23"
