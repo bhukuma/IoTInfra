@@ -24,11 +24,11 @@ resource "aws_iot_thing_principal_attachment" "thing_cert_attachment" {
 }
 
 # Output the certificate and key for later use
-output "certificate_pem" {
+output "certificate" {
   value = aws_iot_certificate.example_certificate.certificate_pem
 }
 
-output "private_key_pem" {
+output "private_key" {
   value = aws_iot_certificate.example_certificate.private_key_pem
 }
 
