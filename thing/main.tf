@@ -22,8 +22,3 @@ resource "aws_iot_thing_principal_attachment" "thing_cert_attachment" {
   thing       = aws_iot_thing.example_thing.name
   principal   = aws_iot_certificate.example_certificate.arn
 }
-
-# Output the certificate and key for later use
-output "certificate_pem" {
-  value = aws_iot_certificate.example_certificate.certificate_pem
-}
