@@ -33,6 +33,8 @@ jobs:
     # Step 4: Initialize Terraform with remote backend
     - name: Terraform Init
       run: terraform init
+    - name: Terraform plan
+      run: terraform plan
       env:
         TF_VAR_access_key: ${{ secrets.AWS_KEY }}
         TF_VAR_secret_key: ${{ secrets.AWS_SECRET }}
