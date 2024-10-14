@@ -5,7 +5,7 @@ provider "aws" {
 # Create IoT Thing
 resource "aws_iot_thing" "example_thing" {
   name = "my-iot-thing"
-  
+
   attributes = {
     "environment" = "development"
     "version"     = "v1"
@@ -20,7 +20,6 @@ resource "tls_private_key" "example_key" {
 
 # Generate a Certificate Signing Request (CSR)
 resource "tls_cert_request" "example_csr" {
-  key_algorithm   = "RSA"
   private_key_pem = tls_private_key.example_key.private_key_pem
 
   subject {
@@ -41,15 +40,11 @@ resource "aws_iot_thing_principal_attachment" "thing_cert_attachment" {
   principal = aws_iot_certificate.example_certificate.arn
 }
 
-# Output the certificate and key for later use
-output "certificate_pem" {
-  value = aws_iot_certificate.example_certificate.certificate_pem
-}
-
+# Output the private key and certificate for later use
 output "private_key_pem" {
   value = tls_private_key.example_key.private_key_pem
 }
 
-output "certificate_arn" {
-  value = aws_iot_certificate.example_certificate.arn
+output "certificate_pem" {
+  value = aws_iot_certificate.example_certificate.certificate_pem
 }
