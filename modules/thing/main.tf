@@ -12,3 +12,8 @@ resource "aws_iot_thing" "esp32" {
     "version"     = "v1"
   }
 }
+# Output the IoT Thing name
+output "iot_thing_name" {
+  value = aws_iot_thing.esp32.name
+  description = "The name of the IoT Thing"
+}
