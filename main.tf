@@ -16,5 +16,5 @@ module "thing" {
 }
 
 module "certificates" {
-  source = "./modules"
+  source = "./modules/certificates"
 }
