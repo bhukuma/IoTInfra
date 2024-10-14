@@ -25,7 +25,7 @@ resource "aws_iot_certificate" "esp32_certificate" {
 
 # Attach the certificate to the IoT Thing
 resource "aws_iot_thing_principal_attachment" "thing_cert_attachment" {
-  thing     = ${module.iot_module.iot_thing_name}
+  thing     = "${module.iot_module.iot_thing_name}"
   principal = aws_iot_certificate.esp32_certificate.arn
 }
 
