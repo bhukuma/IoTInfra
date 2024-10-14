@@ -1,4 +1,4 @@
-module "iot_thing_name" {
+module "iot_module" {
   source = "../thing"  # Path to the folder containing module_a
 }
 # Generate a private key locally
