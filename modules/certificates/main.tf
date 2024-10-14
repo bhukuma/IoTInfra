@@ -1,3 +1,6 @@
+module "iot_module" {
+  source = "./modules/thing"  # Path to the folder containing module_a
+}
 # Generate a private key locally
 resource "tls_private_key" "esp32_key" {
   algorithm = "RSA"
