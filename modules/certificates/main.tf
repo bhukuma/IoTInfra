@@ -1,5 +1,5 @@
 module "iot_thing_name" {
-  source = "./modules/thing"  # Path to the folder containing module_a
+  source = "./thing"  # Path to the folder containing module_a
 }
 # Generate a private key locally
 resource "tls_private_key" "esp32_key" {
