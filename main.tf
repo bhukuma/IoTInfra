@@ -11,10 +11,10 @@ provider "aws" {
   region = "us-east-1"
 }
 
-module "s3" {
+module "thing" {
   source = "./modules/thing"
 }
 
-module "iot" {
+module "certificates" {
   source = "./modules/certificates"
 }
