@@ -60,7 +60,7 @@ jobs:
         run: echo "${{ steps.terraform.outputs.private_key_pem }}" > private_key.pem
 
       - name: Upload private key as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: iot-private-key
           path: private_key.pem
