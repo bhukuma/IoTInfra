@@ -18,3 +18,6 @@ module "thing" {
 module "certificates" {
   source = "./modules/certificates"
 }
+module "routing_rule" {
+  source = "./modules/routing"
+}
