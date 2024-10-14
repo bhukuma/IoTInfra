@@ -43,24 +43,36 @@ jobs:
       - name: Terraform Init
         run: terraform init
         working-directory: thing
-        env:
-          TF_VAR_access_key: ${{ secrets.AWS_KEY }}
-          TF_VAR_secret_key: ${{ secrets.AWS_SECRET }}
 
       # Step 6: Apply Terraform configuration to create the IoT Thing and certificate
       - name: Terraform Apply
+        id: terraform_apply  # Set an ID to reference this step later
         run: terraform apply -auto-approve
         working-directory: thing
-        env:
-          TF_VAR_access_key: ${{ secrets.AWS_KEY }}
-          TF_VAR_secret_key: ${{ secrets.AWS_SECRET }}
 
-      # Step 7: Store private key securely (optional)
+      # Step 7: Retrieve and store private key and certificate from AWS Secrets Manager (optional)
+      - name: Retrieve Secrets from AWS Secrets Manager
+        id: get_secrets
+        run: |
+          echo "PRIVATE_KEY=$(aws secretsmanager get-secret-value --secret-id iot-private-key --query SecretString --output text)" >> $GITHUB_ENV
+          echo "CERTIFICATE=$(aws secretsmanager get-secret-value --secret-id iot-certificate --query SecretString --output text)" >> $GITHUB_ENV
+
+      # Step 8: Store private key as an artifact (optional)
       - name: Store private key as artifact
-        run: echo "${{ steps.terraform.outputs.private_key_pem }}" > private_key.pem
+        run: echo "$PRIVATE_KEY" > private_key.pem
 
       - name: Upload private key as artifact
         uses: actions/upload-artifact@v3
         with:
           name: iot-private-key
           path: private_key.pem
+
+      # Optional: Store certificate as an artifact (if needed)
+      - name: Store certificate as artifact
+        run: echo "$CERTIFICATE" > certificate.pem
+
+      - name: Upload certificate as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: iot-certificate
+          path: certificate.pem
