@@ -28,10 +28,6 @@ output "certificate_pem" {
   value = aws_iot_certificate.example_certificate.certificate_pem
 }
 
-output "private_key_pem" {
-  value = aws_iot_certificate.example_certificate.private_key_pem
-}
-
 output "certificate_arn" {
   value = aws_iot_certificate.example_certificate.arn
 }
