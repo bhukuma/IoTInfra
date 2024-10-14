@@ -11,9 +11,25 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# Create IoT Thing
+terraform {
+  required_providers {
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.0"
+    }
+  }
+}
+
+# Generate a random string of 6 characters
+resource "random_string" "thing_suffix" {
+  length  = 2
+  lower   = true   # Change to false if you want only uppercase or digits
+  number  = true   # Set to true if you want to include numbers
+}
+
+# Create the IoT thing with a random suffix
 resource "aws_iot_thing" "esp32" {
-  name = "thing_esp32"
+  name = "thing_esp32_${random_string.thing_suffix.result}"  # Use the random suffix
 
   attributes = {
     "environment" = "development"
@@ -33,7 +49,7 @@ resource "tls_cert_request" "esp32_csr" {
 
   subject {
     common_name  = "thing_esp32"
-    organization = "My Organization"
+    organization = "My SmartLab"
   }
 }
 
@@ -51,7 +67,7 @@ resource "aws_iot_thing_principal_attachment" "thing_cert_attachment" {
 
 # Create a Secret in AWS Secrets Manager for the private key
 resource "aws_secretsmanager_secret" "private_key_secret" {
-  name        = "thing_esp32-private-key"
+  name        = "aws_iot_thing.esp32.name-private-key"
   description = "Private key for IoT Thing"
 }
 
@@ -62,7 +78,7 @@ resource "aws_secretsmanager_secret_version" "private_key_version" {
 
 # Create a Secret in AWS Secrets Manager for the certificate
 resource "aws_secretsmanager_secret" "certificate_secret" {
-  name        = "thing_esp32-certificate"
+  name        = "aws_iot_thing.esp32.name-cert"
   description = "Certificate for IoT Thing"
 }
 
