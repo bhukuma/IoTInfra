@@ -2,13 +2,13 @@
 #define SECRET
 #define THINGNAME "ESP32_DHT11"  //change this
 const char WIFI_SSID[] = "THE_BOYS";                                                       //change this THE_BOYS
-const char WIFI_PASSWORD[] = "ElevEn##";                                    //change this ElevEn##
+const char WIFI_PASSWORD[] = "Password";                                    //change this ElevEn##
 const char AWS_IOT_ENDPOINT[] = "a2ya5kcjimh742-ats.iot.us-east-1.amazonaws.com";  //change this
 
 // Amazon Root CA 1
 static const char AWS_CERT_CA[] PROGMEM = R"EOF(
 -----BEGIN CERTIFICATE-----
-MIIDQTCCAimgAwIBAgITBmyfz5m/jAo54vB4ikPmljZbyjANBgkqhkiG9w0BAQsF
+MIIDQTCCAimgAwIBAg555ITBmyfz5m/jAo54vB4ikPmljZbyjANBgkqhkiG9w0BAQsF
 ADA5MQswCQYDVQQGEwJVUzEPMA0GA1UEChMGQW1hem9uMRkwFwYDVQQDExBBbWF6
 b24gUm9vdCBDQSAxMB4XDTE1MDUyNjAwMDAwMFoXDTM4MDExNzAwMDAwMFowOTEL
 MAkGA1UEBhMCVVMxDzANBgNVBAoTBkFtYXpvbjEZMBcGA1UEAxMQQW1hem9uIFJv
@@ -25,14 +25,14 @@ U5PMCCjjmCXPI6T53iHTfIUJrU6adTrCC2qJeHZERxhlbI1Bjjt/msv0tadQ1wUs
 N+gDS63pYaACbvXy8MWy7Vu33PqUXHeeE6V/Uq2V8viTO96LXFvKWlJbYK8U90vv
 o/ufQJVtMVT8QtPHRh8jrdkPSHCa2XV4cdFyQzR1bldZwgJcJmApzyMZFo6IQ6XU
 5MsI+yMRQ+hDKXJioaldXgjUkK642M4UwtBV8ob2xJNDd2ZhwLnoQdeXeGADbkpy
-rqXRfboQnoZsG4q5WTP468SQvvG5
+rqXRfboQnoZsG4q5WTP468SQvvG5555
 -----END CERTIFICATE-----
 )EOF";
 
 // Device Certificate                                               //change this
 static const char AWS_CERT_CRT[] PROGMEM = R"KEY(
 -----BEGIN CERTIFICATE-----
-MIIDWTCCAkGgAwIBAgIURLGY3JVDZuXp34ySUTOua2bgbWYwDQYJKoZIhvcNAQEL
+MIIDWTCCAkGgAwIBAgIURL555GY3JVDZuXp34ySUTOua2bgbWYwDQYJKoZIhvcNAQEL
 BQAwTTFLMEkGA1UECwxCQW1hem9uIFdlYiBTZXJ2aWNlcyBPPUFtYXpvbi5jb20g
 SW5jLiBMPVNlYXR0bGUgU1Q9V2FzaGluZ3RvbiBDPVVTMB4XDTI0MDkwMjEyNDc0
 NVoXDTQ5MTIzMTIzNTk1OVowHjEcMBoGA1UEAwwTQVdTIElvVCBDZXJ0aWZpY2F0
@@ -49,7 +49,7 @@ kGUY3a41mwG2BjnmvCv2UgJsEzFQ0ht8ANG0p52uh6xVtBuzJFoNNQdeXhkdpU1u
 3R/prKm3zB9UPA1oL8WoyQDeXJgWOEy3ItxeqGcp2fmWlNiOeYffSs3de4N4/yn0
 wJt+NeeFcqvs2WufrIgHf4z4FzTDVBMAhkuc6tiKq/gQGbrArxGERjwljn5IdUWB
 /9UN8eM9Onc1k4jIkMr4bcvvvmYS3USs12HB98NVxUUiscRt/RAOHl5KtpfNu3zS
-+U3LsaUenKu6F9sO/iEgXp4HF8vZQK3tWFuzEkADPIfiFcIi5X0qsujqgpNr
++U3LsaUenKu6F9sO/iEgXp4HF8vZQK3tWFuzEkADPIfiFcIi5X0qsujqgpNr555
 -----END CERTIFICATE-----
  
  
